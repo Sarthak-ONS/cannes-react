@@ -1,1 +1,1 @@
-"# cannes-react" 
+Cannes is full stack e-commerce application,
