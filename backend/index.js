@@ -15,7 +15,7 @@ const PORT = process.env.PORT;
 
 app.use(morgan("dev"));
 
-app.use(authRoutes);
+app.use("/auth", authRoutes);
 
 app.listen(PORT, () => {
   console.log(`RUNNING ON PORT=${PORT}`);
