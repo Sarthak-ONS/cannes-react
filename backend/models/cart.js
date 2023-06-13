@@ -23,14 +23,12 @@ const cartSchema = new Schema({
   ],
 });
 
-cartSchema.methods.addProduct = function (productId, quantity = 1) {
-  const cartItem = this.items.find((item) => item.product.equals(productId));
-
+cartSchema.methods.addProduct = function (productId, quantity = 1, userId) {
+  this.userId = userId;
   if (cartItem) {
-    // If the product already exists in the cart, update the quantity
+    const cartItem = this.items.find((item) => item.product.equals(productId));
     cartItem.quantity += quantity;
   } else {
-    // If the product does not exist in the cart, add it as a new item
     this.items.push({ product: productId, quantity });
   }
 
@@ -38,7 +36,8 @@ cartSchema.methods.addProduct = function (productId, quantity = 1) {
 };
 
 // Custom method to remove a product from the cart
-cartSchema.methods.removeProduct = function (productId) {
+cartSchema.methods.removeProduct = function (productId, userId) {
+  this.userId = userId;
   this.items = this.items.filter((item) => !item.product.equals(productId));
   return this.save();
 };

@@ -30,15 +30,14 @@ const userSchema = new Schema(
     },
     resetToken: String,
     resetTokenExpiration: Date,
-    cart: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Product",
-        quantity: {
-          default: 0,
-        },
-      },
-    ],
+    cart: {
+      type: Schema.Types.ObjectId,
+      ref: "Cart",
+    },
+    address: {
+      type: Schema.Types.ObjectId,
+      ref: "Address",
+    },
   },
   { timestamps: true }
 );
