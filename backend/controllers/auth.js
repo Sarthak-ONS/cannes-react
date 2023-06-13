@@ -93,7 +93,7 @@ exports.login = async (req, res, next) => {
       }
     );
 
-    res.status(200).json({ token, userId: user._id.toString() });
+    return res.status(200).json({ token, userId: user._id.toString() });
   } catch (err) {
     const error = new Error(err);
     error.httpStatusCode = 500;
@@ -145,7 +145,12 @@ exports.forgotPassword = async (req, res, next) => {
       }
     );
 
-    res.status(200).json({ status: "SUCCESS", message: "Email is sent" });
+    return res
+      .status(200)
+      .json({
+        status: "SUCCESS",
+        message: "Please follow instructions sent on email!",
+      });
   } catch (error) {
     user.resetToken = undefined;
     user.resetTokenExpiration = undefined;
@@ -194,7 +199,9 @@ exports.passwordReset = async (req, res, next) => {
     user.resetTokenExpiration = undefined;
 
     await user.save();
-    res.status(200).json({ status: "SUCCESS", message: "Email is sent" });
+    return res
+      .status(200)
+      .json({ status: "SUCCESS", message: "Email is sent" });
   } catch (error) {
     console.log(error);
     const err = new Error("Password Changed request failed");
