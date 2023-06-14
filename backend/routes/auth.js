@@ -7,6 +7,8 @@ passport.use(
   new GoogleStrategy(
     {
       callbackURL: "/auth/google/callback",
+      clientID: process.env.GOOGLE_AUTH_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET,
     },
     (accessToken, refreshToken, profile, done) => {
       console.log(profile);
@@ -35,10 +37,9 @@ router.get(
   passport.authenticate(
     "google",
 
-    { failureRedirect: "/login", session: false }
+    { failureRedirect: "/login", session: false, successMessage: true }
   ),
   (req, res) => {
-    // Successful authentication, redirect or respond with data
     res.send("Success mil gayi");
   }
 );
